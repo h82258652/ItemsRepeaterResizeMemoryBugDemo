@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="ItemsRepeaterResizeMemoryBugDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ItemsRepeaterResizeMemoryBugDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+    <Grid>
+        <controls:RadioButtons x:Name="Repeater">
+            <controls:RadioButtons.Template>
+                <ControlTemplate TargetType="controls:RadioButtons">
+                    <StackPanel>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="HeaderContentPresenter.Foreground" Value="{ThemeResource RadioButtonsHeaderForegroundDisabled}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter
+                            x:Name="HeaderContentPresenter"
+                            Margin="{ThemeResource RadioButtonsTopHeaderMargin}"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            Foreground="{ThemeResource RadioButtonsHeaderForeground}" />
+                        <controls:ItemsRepeater x:Name="InnerRepeater">
+                            <controls:ItemsRepeater.Layout>
+                                <controls:StackLayout />
+                                <!--<primitives:ColumnMajorUniformToLargestGridLayout
+                                    MaxColumns="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MaxColumns}"
+                                    ColumnSpacing="{ThemeResource RadioButtonsColumnSpacing}"
+                                    RowSpacing="{ThemeResource RadioButtonsRowSpacing}"/>-->
+                            </controls:ItemsRepeater.Layout>
+                        </controls:ItemsRepeater>
+                    </StackPanel>
+                </ControlTemplate>
+            </controls:RadioButtons.Template>
+        </controls:RadioButtons>
+    </Grid>
+</Page>
